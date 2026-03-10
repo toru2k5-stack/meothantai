@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mèo Thần Tài 98 – Huế</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c8922a;
+    --gold-light: #f0c96b;
+    --gold-pale: #fdf3dc;
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --ink: #1a0f00;
+    --cream: #fdf8f0;
+    --warm-gray: #8b7355;
+    --border: #e8d5a3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 50%, #e74c3c 100%);
+    padding: 0;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 24px rgba(192,57,43,0.4);
+  }
+  .header-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px; text-decoration: none;
+  }
+  .logo-icon { font-size: 2rem; animation: sway 3s ease-in-out infinite; }
+  @keyframes sway {
+    0%,100% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+  }
+  .logo-text { line-height: 1; }
+  .logo-text .main { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold-light); font-weight: 700; }
+  .logo-text .sub { font-size: 0.7rem; color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase; }
+  .hotline { color: var(--gold-light); font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+  .hotline span { display: block; font-size: 0.65rem; color: rgba(255,255,255,0.6); }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, var(--red) 0%, var(--red-dark) 40%, #6b1a1a 100%);
+    padding: 60px 24px 80px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '🐱';
+    position: absolute; font-size: 18rem; opacity: 0.04;
+    top: -40px; right: -60px; line-height: 1;
+  }
+  .hero-badge {
+    display: inline-block; background: var(--gold); color: white;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; padding: 4px 16px; border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem); color: white; font-weight: 900;
+    line-height: 1.1; margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--gold-light); }
+  .hero p { color: rgba(255,255,255,0.75); font-size: 1rem; max-width: 480px; margin: 0 auto 28px; line-height: 1.6; }
+  .hero-stats {
+    display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--gold-light); font-weight: 900; }
+  .stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* ── CONTROLS ── */
+  .controls-wrap {
+    background: white;
+    border-bottom: 2px solid var(--border);
+    position: sticky; top: 64px; z-index: 90;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .controls {
+    max-width: 1200px; margin: 0 auto;
+    padding: 14px 24px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+  }
+  .search-box {
+    flex: 1; min-width: 200px;
+    display: flex; align-items: center; gap: 8px;
+    background: var(--cream); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 8px 14px;
+  }
+  .search-box input {
+    border: none; background: none; outline: none;
+    font-family: 'Be Vietnam Pro', sans-serif; font-size: 0.9rem; color: var(--ink);
+    width: 100%;
+  }
+  .search-icon { color: var(--warm-gray); font-size: 1rem; }
+  .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter-btn {
+    padding: 8px 16px; border-radius: 20px; border: 1.5px solid var(--border);
+    background: white; font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 0.82rem; font-weight: 500; color: var(--warm-gray);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .filter-btn.active {
+    background: var(--red); border-color: var(--red);
+    color: white; font-weight: 600;
+  }
+  .price-filter {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; color: var(--warm-gray);
+  }
+  .price-filter select {
+    padding: 7px 12px; border-radius: 20px; border: 1.5px solid var(--border);
+    font-family: 'Be Vietnam Pro', sans-serif; font-size: 0.82rem;
+    color: var(--ink); background: white; outline: none; cursor: pointer;
+  }
+  .result-count {
+    margin-left: auto; font-size: 0.82rem; color: var(--warm-gray);
+    font-weight: 500; white-space: nowrap;
+  }
+
+  /* ── GRID ── */
+  .catalog { max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px; }
+  .section-title {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--ink);
+    margin-bottom: 28px;
+  }
+  .section-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: white; border-radius: 16px; overflow: hidden;
+    border: 1.5px solid var(--border);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(192,57,43,0.15);
+  }
+  .card.out-of-stock { opacity: 0.6; }
+
+  .card-badge-wrap {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 700;
+  }
+  .badge-cat { background: var(--red); color: white; }
+  .badge-hot { background: var(--gold); color: white; }
+  .badge-new { background: #27ae60; color: white; }
+  .badge-soldout { background: #7f8c8d; color: white; }
+
+  .card-img {
+    width: 100%; height: 220px; object-fit: cover;
+    display: block; background: var(--gold-pale);
+    position: relative;
+  }
+  .card-img-placeholder {
+    width: 100%; height: 220px;
+    background: linear-gradient(135deg, var(--gold-pale), #faebd7);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+  }
+
+  .card-body { padding: 16px; }
+  .card-cat {
+    font-size: 0.68rem; color: var(--warm-gray); text-transform: uppercase;
+    letter-spacing: 1.5px; font-weight: 600; margin-bottom: 6px;
+  }
+  .card-name {
+    font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 4px; line-height: 1.3;
+  }
+  .card-size { font-size: 0.78rem; color: var(--warm-gray); margin-bottom: 10px; }
+
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--gold-pale);
+    border-top: 1px solid var(--border);
+  }
+  .card-price {
+    font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700;
+    color: var(--red);
+  }
+  .card-price .unit { font-size: 0.75rem; font-weight: 400; color: var(--warm-gray); }
+  .stock-info {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
+  }
+  .stock-count {
+    font-size: 0.78rem; font-weight: 700;
+  }
+  .stock-count.plenty { color: #27ae60; }
+  .stock-count.low { color: #e67e22; }
+  .stock-count.out { color: #e74c3c; }
+  .stock-bar {
+    width: 64px; height: 5px; background: #e0e0e0; border-radius: 3px; overflow: hidden;
+  }
+  .stock-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+  .stock-bar-fill.plenty { background: #27ae60; }
+  .stock-bar-fill.low { background: #e67e22; }
+  .stock-bar-fill.out { background: #e74c3c; }
+
+  .contact-btn {
+    display: block; text-align: center; margin: 10px 16px 14px;
+    padding: 9px; background: var(--red); color: white;
+    border-radius: 10px; font-size: 0.82rem; font-weight: 600;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .contact-btn:hover { background: var(--red-dark); }
+  .card.out-of-stock .contact-btn { background: #aaa; pointer-events: none; }
+
+  /* ── NO RESULTS ── */
+  .no-results {
+    text-align: center; padding: 80px 24px; color: var(--warm-gray);
+    display: none;
+  }
+  .no-results .emoji { font-size: 4rem; margin-bottom: 16px; }
+  .no-results h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 8px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.7);
+    padding: 40px 24px; text-align: center;
+  }
+  footer .footer-cat { font-size: 2.5rem; animation: sway 2s ease-in-out infinite; display: inline-block; margin-bottom: 12px; }
+  footer h3 { font-family: 'Playfair Display', serif; color: var(--gold-light); font-size: 1.2rem; margin-bottom: 8px; }
+  footer p { font-size: 0.85rem; line-height: 1.8; }
+  footer a { color: var(--gold-light); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .controls { gap: 8px; }
+    .result-count { width: 100%; text-align: right; }
+    .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
+    .card-img-placeholder { height: 160px; font-size: 3.5rem; }
+    .card-img { height: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-icon">🐱</span>
+      <div class="logo-text">
+        <div class="main">Mèo Thần Tài 98</div>
+        <div class="sub">Huế · Gốm sứ cao cấp</div>
+      </div>
+    </a>
+    <a href="tel:0978725528" class="hotline">
+      <span>Hotline</span>
+      0978 725 528
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">✨ Hàng chính hãng – Huế</div>
+  <h1>Mèo Thần Tài<br><span>May Mắn · Tài Lộc</span></h1>
+  <p>Gốm sứ cao cấp, màu sắc bền đẹp. Đặt trong nhà hoặc cửa hàng giúp thu hút khách hàng, mang lại thịnh vượng.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">4+</div><div class="stat-label">Dòng sản phẩm</div></div>
+    <div class="stat"><div class="stat-num">11–32cm</div><div class="stat-label">Kích thước</div></div>
+    <div class="stat"><div class="stat-num">98</div><div class="stat-label">Thương hiệu</div></div>
+  </div>
+</section>
+
+<!-- CONTROLS -->
+<div class="controls-wrap">
+  <div class="controls">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Tìm sản phẩm..." oninput="filterProducts()">
+    </div>
+    <div class="filter-group">
+      <button class="filter-btn active" onclick="setCategory('all', this)">Tất cả</button>
+      <button class="filter-btn" onclick="setCategory('Mèo Trung', this)">Mèo Trung</button>
+      <button class="filter-btn" onclick="setCategory('Mèo Đại', this)">Mèo Đại</button>
+      <button class="filter-btn" onclick="setCategory('Năng Lượng Mặt Trời', this)">Mặt Trời</button>
+      <button class="filter-btn" onclick="setCategory('Lẵng', this)">Lẵng</button>
+      <button class="filter-btn" onclick="setCategory('Box Mica', this)">Box Mica</button>
+    </div>
+    <div class="price-filter">
+      <span>💰</span>
+      <select id="priceFilter" onchange="filterProducts()">
+        <option value="all">Tất cả giá</option>
+        <option value="0-300000">Dưới 300.000đ</option>
+        <option value="300000-600000">300k – 600k</option>
+        <option value="600000-1000000">600k – 1tr</option>
+        <option value="1000000-99999999">Trên 1 triệu</option>
+      </select>
+    </div>
+    <div class="result-count" id="resultCount">Đang tải...</div>
+  </div>
+</div>
+
+<!-- CATALOG -->
+<section class="catalog">
+  <div class="section-title">🐱 Danh Sách Sản Phẩm</div>
+  <div class="products-grid" id="productGrid"></div>
+  <div class="no-results" id="noResults">
+    <div class="emoji">🐱</div>
+    <h3>Không tìm thấy sản phẩm</h3>
+    <p>Hãy thử tìm kiếm khác hoặc xóa bộ lọc.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-cat">🐱</div>
+  <h3>Shop Mèo Thần Tài 98</h3>
+  <p>
+    📍 129 Thạch Hãn – P.Thuận Hòa – Q.Phú Xuân – TP. Huế<br>
+    📞 <a href="tel:0978725528">0978 725 528</a> &nbsp;|&nbsp;
+    💬 Zalo: <a href="tel:0358014085">0358 014 085</a><br><br>
+    <em>"Nghệ thuật của sự tinh tế – Tạo dấu ấn từ món quà ý nghĩa"</em>
+  </p>
+</footer>
+
+<script>
+const products = [
+  // MÈO TRUNG
+  {
+    id: 1, name: "Mèo Thần Tài Đỏ – Trung S",
+    category: "Mèo Trung", size: "Cao 11cm",
+    price: 120000, stock: 15, isHot: false, isNew: false,
+    emoji: "🐱",
+    desc: "Mèo thần tài màu đỏ cổ điển, kích thước nhỏ gọn"
+  },
+  {
+    id: 2, name: "Mèo Thần Tài Đỏ – Trung M",
+    category: "Mèo Trung", size: "Cao 18cm",
+    price: 250000, stock: 8, isHot: true, isNew: false,
+    emoji: "🐱",
+    desc: "Size vừa, phù hợp bàn làm việc và quầy thu ngân"
+  },
+  {
+    id: 3, name: "Mèo Thần Tài Đỏ – Trung L",
+    category: "Mèo Trung", size: "Cao 23cm",
+    price: 380000, stock: 3, isHot: true, isNew: false,
+    emoji: "🐱",
+    desc: "Size 23cm – kích thước nhỏ gọn, phù hợp mọi không gian"
+  },
+  {
+    id: 4, name: "Mèo Thần Tài Vàng – Trung",
+    category: "Mèo Trung", size: "Cao 18cm",
+    price: 280000, stock: 0, isHot: false, isNew: false,
+    emoji: "🐱",
+    desc: "Phiên bản vàng ánh kim sang trọng"
+  },
+
+  // MÈO ĐẠI
+  {
+    id: 5, name: "Mèo Thần Tài Đại – Loại I",
+    category: "Mèo Đại", size: "Cao 28cm",
+    price: 650000, stock: 5, isHot: true, isNew: false,
+    emoji: "🐱",
+    desc: "Kích thước lớn, uy nghi, phù hợp cửa hàng kinh doanh"
+  },
+  {
+    id: 6, name: "Mèo Thần Tài Đại – Loại II",
+    category: "Mèo Đại", size: "Cao 32cm",
+    price: 850000, stock: 2, isHot: true, isNew: false,
+    emoji: "🐱",
+    desc: "Size lớn nhất dòng mèo đại, biểu tượng phú quý"
+  },
+  {
+    id: 7, name: "Mèo Thần Tài Đại Cao Cấp",
+    category: "Mèo Đại", size: "Cao 32cm – Mạ vàng",
+    price: 1200000, stock: 1, isHot: false, isNew: true,
+    emoji: "🐱",
+    desc: "Phiên bản cao cấp mạ vàng 24K, quà tặng ý nghĩa"
+  },
+
+  // NĂNG LƯỢNG MẶT TRỜI
+  {
+    id: 8, name: "Mèo Vẫy Tay Năng Lượng MT",
+    category: "Năng Lượng Mặt Trời", size: "Cao 15cm",
+    price: 180000, stock: 20, isHot: false, isNew: false,
+    emoji: "🐱",
+    desc: "Tự động vẫy tay bằng năng lượng mặt trời, vui nhộn"
+  },
+  {
+    id: 9, name: "Mèo Vẫy Tay NLMT – Size Lớn",
+    category: "Năng Lượng Mặt Trời", size: "Cao 22cm",
+    price: 320000, stock: 7, isHot: false, isNew: true,
+    emoji: "🐱",
+    desc: "Phiên bản lớn, vẫy tay liên tục thu hút tài lộc"
+  },
+
+  // LẴNG
+  {
+    id: 10, name: "Lẵng Mèo Thần Tài Mini",
+    category: "Lẵng", size: "Đường kính 20cm",
+    price: 150000, stock: 12, isHot: false, isNew: false,
+    emoji: "🧺",
+    desc: "Lẵng mini xinh xắn, dễ tặng quà"
+  },
+  {
+    id: 11, name: "Lẵng Mèo Thần Tài Chuẩn",
+    category: "Lẵng", size: "Đường kính 30cm",
+    price: 280000, stock: 6, isHot: true, isNew: false,
+    emoji: "🧺",
+    desc: "Lẵng mèo trang trí đẹp, đủ phụ kiện đi kèm"
+  },
+  {
+    id: 12, name: "Lẵng Mèo Cao Cấp – Quà Tặng",
+    category: "Lẵng", size: "Đường kính 40cm",
+    price: 480000, stock: 4, isHot: true, isNew: true,
+    emoji: "🧺",
+    desc: "Set quà tặng sang trọng, có hộp và ruy băng"
+  },
+
+  // BOX MICA
+  {
+    id: 13, name: "Box Mica Mèo Thần Tài S",
+    category: "Box Mica", size: "15×15×20cm",
+    price: 90000, stock: 25, isHot: false, isNew: false,
+    emoji: "📦",
+    desc: "Hộp mica trong suốt, bảo vệ và trưng bày mèo đẹp"
+  },
+  {
+    id: 14, name: "Box Mica Mèo Thần Tài M",
+    category: "Box Mica", size: "20×20×28cm",
+    price: 150000, stock: 18, isHot: false, isNew: false,
+    emoji: "📦",
+    desc: "Phù hợp với mèo trung, tặng kèm đèn LED"
+  },
+  {
+    id: 15, name: "Box Mica Mèo Đại – Đèn LED",
+    category: "Box Mica", size: "25×25×38cm",
+    price: 250000, stock: 0, isHot: false, isNew: true,
+    emoji: "📦",
+    desc: "Hộp mica lớn có đèn LED chiếu sáng lung linh"
+  },
+];
+
+let activeCategory = 'all';
+
+function setCategory(cat, btn) {
+  activeCategory = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  filterProducts();
+}
+
+function formatPrice(p) {
+  return p.toLocaleString('vi-VN') + 'đ';
+}
+
+function getStockClass(s) {
+  if (s === 0) return 'out';
+  if (s <= 3) return 'low';
+  return 'plenty';
+}
+
+function getStockLabel(s) {
+  if (s === 0) return 'Hết hàng';
+  if (s <= 3) return `Còn ${s} cái ⚡`;
+  return `Còn ${s} cái`;
+}
+
+function stockPercent(s) {
+  return Math.min(100, (s / 20) * 100);
+}
+
+function filterProducts() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const priceVal = document.getElementById('priceFilter').value;
+  const grid = document.getElementById('productGrid');
+  const noRes = document.getElementById('noResults');
+
+  let [pMin, pMax] = [0, 99999999];
+  if (priceVal !== 'all') {
+    [pMin, pMax] = priceVal.split('-').map(Number);
+  }
+
+  const filtered = products.filter(p => {
+    const matchCat = activeCategory === 'all' || p.category === activeCategory;
+    const matchSearch = p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q);
+    const matchPrice = p.price >= pMin && p.price <= pMax;
+    return matchCat && matchSearch && matchPrice;
+  });
+
+  document.getElementById('resultCount').textContent = `${filtered.length} sản phẩm`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    return;
+  }
+  noRes.style.display = 'none';
+
+  grid.innerHTML = filtered.map(p => {
+    const sc = getStockClass(p.stock);
+    const sp = stockPercent(p.stock);
+    const oos = p.stock === 0;
+    return `
+    <div class="card${oos ? ' out-of-stock' : ''}">
+      <div class="card-badge-wrap">
+        <span class="badge badge-cat">${p.category}</span>
+        ${p.isHot ? '<span class="badge badge-hot">🔥 Hot</span>' : ''}
+        ${p.isNew ? '<span class="badge badge-new">✨ Mới</span>' : ''}
+        ${oos ? '<span class="badge badge-soldout">Hết hàng</span>' : ''}
+      </div>
+      <div class="card-img-placeholder">${p.emoji}</div>
+      <div class="card-body">
+        <div class="card-cat">${p.category}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-size">📐 ${p.size}</div>
+        <div class="card-size" style="color:#555">${p.desc}</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-price">${formatPrice(p.price)} <span class="unit">/ cái</span></div>
+        <div class="stock-info">
+          <span class="stock-count ${sc}">${getStockLabel(p.stock)}</span>
+          <div class="stock-bar"><div class="stock-bar-fill ${sc}" style="width:${sp}%"></div></div>
+        </div>
+      </div>
+      <a href="https://zalo.me/0358014085" target="_blank" class="contact-btn">
+        ${oos ? '⚠️ Hết hàng – Liên hệ đặt trước' : '💬 Đặt hàng qua Zalo'}
+      </a>
+    </div>`;
+  }).join('');
+}
+
+// Init
+filterProducts();
+</script>
+</body>
+</html>
