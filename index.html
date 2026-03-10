@@ -350,8 +350,7 @@
 const products = [
   // MÈO TRUNG
   {
-    id: 1, name: "Mèo Thần Tài Đỏ – Trung S
-    image: "1.jpg",
+    id: 1, name: "Mèo Thần Tài Đỏ – Trung S",
     category: "Mèo Trung", size: "Cao 11cm",
     price: 120000, stock: 15, isHot: false, isNew: false,
     emoji: "🐱",
@@ -533,7 +532,10 @@ function filterProducts() {
         ${p.isNew ? '<span class="badge badge-new">✨ Mới</span>' : ''}
         ${oos ? '<span class="badge badge-soldout">Hết hàng</span>' : ''}
       </div>
-      <div class="card-img-placeholder">${p.emoji}</div>
+      ${p.image
+        ? `<img class="card-img" src="${p.image}" alt="${p.name}" onerror="this.outerHTML='<div class=\\'card-img-placeholder\\'>${p.emoji}</div>'">`
+        : `<div class="card-img-placeholder">${p.emoji}</div>`
+      }
       <div class="card-body">
         <div class="card-cat">${p.category}</div>
         <div class="card-name">${p.name}</div>
@@ -547,7 +549,7 @@ function filterProducts() {
           <div class="stock-bar"><div class="stock-bar-fill ${sc}" style="width:${sp}%"></div></div>
         </div>
       </div>
-      <a href="https://zalo.me/0358014085" target="_blank" class="contact-btn">
+      <a href="https://zalo.me/0358014085?text=${encodeURIComponent(`Dạ em muốn đặt: ${p.name} (${p.size}) - Giá: ${formatPrice(p.price)}. Shop còn hàng không ạ?`)}" target="_blank" class="contact-btn">
         ${oos ? '⚠️ Hết hàng – Liên hệ đặt trước' : '💬 Đặt hàng qua Zalo'}
       </a>
     </div>`;
