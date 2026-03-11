@@ -135,13 +135,28 @@
   .stock-bar-fill.out { background:#e74c3c; }
 
   .contact-btn {
-    display:block; text-align:center; margin:7px 10px 10px;
+    display:block; text-align:center; margin:7px 10px 4px;
     padding:8px; background:var(--red); color:white;
     border-radius:8px; font-size:0.76rem; font-weight:600;
-    text-decoration:none; transition:background 0.2s;
+    border:none; cursor:pointer; transition:background 0.2s; width:calc(100% - 20px);
   }
   .contact-btn:hover { background:var(--red-dark); }
-  .card.out-of-stock .contact-btn { background:#aaa; pointer-events:none; }
+  .contact-btn-zalo {
+    display:block; text-align:center; margin:0 10px 10px;
+    padding:7px; background:#0068ff; color:white;
+    border-radius:8px; font-size:0.74rem; font-weight:600;
+    text-decoration:none; transition:background 0.2s;
+  }
+  .contact-btn-zalo:hover { background:#0052cc; }
+  .card.out-of-stock .contact-btn,
+  .card.out-of-stock .contact-btn-zalo { background:#aaa; pointer-events:none; }
+  .toast {
+    position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(60px);
+    background:#222; color:white; padding:10px 22px; border-radius:24px;
+    font-size:0.85rem; font-weight:500; z-index:9999;
+    transition:transform 0.3s, opacity 0.3s; opacity:0; pointer-events:none; white-space:nowrap;
+  }
+  .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
 
   /* NO RESULTS */
   .no-results { text-align:center; padding:60px 24px; color:var(--warm-gray); display:none; }
@@ -155,6 +170,8 @@
 </style>
 </head>
 <body>
+
+<div class="toast" id="toast"></div>
 
 <header>
   <div class="header-inner">
@@ -326,11 +343,36 @@ function filterProducts() {
       <div class="stock-bar"><div class="stock-bar-fill ${s}" style="width:${pct}%"></div></div>
     </div>
   </div>
-  <a href="https://zalo.me/0358014085?text=${msg}" target="_blank" class="contact-btn">
-    ${oos?'⚠️ Liên hệ đặt trước':'💬 Đặt hàng qua Zalo'}
-  </a>
+    ${oos
+      ? `<button class="contact-btn" disabled>⚠️ Hết hàng – Liên hệ đặt trước</button>`
+      : `<button class="contact-btn" onclick="copyAndZalo('${p.name}','${p.size}','${fmt(p.price)}')">📋 Copy thông tin & Mở Zalo</button>
+         <a href="https://zalo.me/0358014085" target="_blank" class="contact-btn-zalo">💬 Mở Zalo ngay</a>`
+    }
 </div>`;
   }).join('');
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function copyAndZalo(name, size, price) {
+  const text = `Dạ em muốn đặt:\n🐱 ${name}\n📐 ${size}\n💰 ${price}\nShop còn hàng không ạ?`;
+  navigator.clipboard.writeText(text)
+    .then(() => showToast('✅ Đã copy! Mở Zalo dán vào gửi shop nhé'))
+    .catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('✅ Đã copy! Mở Zalo dán vào gửi shop nhé');
+    });
+  setTimeout(() => window.open('https://zalo.me/0358014085','_blank'), 400);
 }
 
 filterProducts();
