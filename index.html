@@ -472,7 +472,7 @@ const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
       ${oos
         ? `<button class="btn-copy" disabled>⚠️ Hết hàng</button>`
         : `<button class="btn-copy" onclick="copyInfo('${p.ten.replace(/'/g,"\\'")}','${p.kichthuoc}','${fmt(p.gia)}','${p.masp}')">📋 Copy thông tin đặt hàng</button>
-           <a href="https://zalo.me/0358014085" target="_blank" class="btn-zalo">💬 Mở Zalo</a>`
+          <a href="https://m.me/61555618073597" target="_blank" class="btn-zalo" style="background:#0084ff">💬 Nhắn Messenger</a>
       }
     </div>
   </div>`;
@@ -497,7 +497,7 @@ function showToast(msg) {
 }
 
 function copyInfo(ten, size, gia, masp) {
-  const text = `Dạ em muốn đặt:\n🐱 ${ten}\n📐 ${size}\n💰 ${gia}\nMã: ${masp}\nShop còn hàng không ạ?`;
+  const text = `Dạ tôi muốn đặt:\n🐱 ${ten}\n📐 ${size}\n💰 ${gia}\nMã: ${masp}\nShop còn hàng không ạ?`;
   navigator.clipboard.writeText(text)
     .then(()=>showToast('✅ Đã copy! Mở Zalo dán vào gửi shop nhé'))
     .catch(()=>{
