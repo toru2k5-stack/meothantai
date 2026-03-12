@@ -462,7 +462,7 @@ const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
       ${p.masp?`<div class="card-masp">Mã: ${p.masp}</div>`:''}
     </div>
     <div class="card-footer">
-      <div class="card-price">${fmt(p.gia)}<span class="unit"> /cái</span></div>
+      <div class="card-price">${fmt(p.gia)}<span class="unit"> /con</span>
       <div class="stock-info">
         <span class="stock-count ${sc}">${sl}</span>
        
@@ -472,8 +472,7 @@ const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
       ${oos
         ? `<button class="btn-copy" disabled>⚠️ Hết hàng</button>`
         : `<button class="btn-copy" onclick="copyInfo('${p.ten.replace(/'/g,"\\'")}','${p.kichthuoc}','${fmt(p.gia)}','${p.masp}')">📋 Copy thông tin đặt hàng</button>
-         <a href="https://zalo.me/0358014085?text=${msg}" target="_blank" class="btn-zalo">💬 Nhắn Zalo</a>
-         <a href="https://m.me/61555618073597" target="_blank" class="btn-zalo" style="background:#0084ff">💬 Nhắn Messenger</a>`
+       <a href="https://m.me/61555618073597" target="_blank" class="btn-zalo" style="background:#0084ff">💬 Nhắn Fanpage</a>`
       }
     </div>
   </div>`;
