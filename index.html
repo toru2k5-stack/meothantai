@@ -416,7 +416,7 @@ function setTab(cat, tab) {
 function cardHTML(p) {
   const oos = p.soluong===0;
   const sc = oos?'out':p.soluong<=3?'low':'plenty';
-  const sl = oos?'Hết hàng':p.soluong<=3?`Còn ${p.soluong} ⚡`:`Còn ${p.soluong}`;
+  const sl = oos?'Hết hàng':'Còn hàng';
   const pct = Math.min(100,(p.soluong/20)*100);
 const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
 
