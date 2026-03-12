@@ -498,7 +498,7 @@ function showToast(msg) {
 }
 
 function copyInfo(ten, size, gia, masp) {
-  const text = `Dạ tôi muốn đặt:\n🐱 ${ten}\n📐 ${size}\n💰 ${gia}\nMã: ${masp}\nShop còn hàng không ạ?`;
+ const text = `Xin Chào! Tôi muốn đặt:\n🐱 ${ten}\n📐 ${size}\n💰 ${gia}\nMã: ${masp}\nShop còn hàng không ạ?`;
   navigator.clipboard.writeText(text)
     .then(()=>showToast('✅ Đã copy! Mở Zalo dán vào gửi shop nhé'))
     .catch(()=>{
