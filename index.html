@@ -15,16 +15,8 @@
   body { background:var(--cream); font-family:'Be Vietnam Pro',sans-serif; color:var(--ink); overflow-x:hidden; }
 
   /* HEADER */
-  header {
-    background:linear-gradient(135deg,var(--red-dark),var(--red));
-    position:sticky; top:0; z-index:100;
-    box-shadow:0 2px 12px rgba(192,57,43,0.4);
-  }
-  .header-inner {
-    max-width:1200px; margin:0 auto;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:10px 16px;
-  }
+  header { background:linear-gradient(135deg,var(--red-dark),var(--red)); position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(192,57,43,0.4); }
+  .header-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:10px 16px; }
   .logo { display:flex; align-items:center; gap:8px; text-decoration:none; }
   .logo-icon { font-size:1.6rem; animation:sway 3s ease-in-out infinite; }
   @keyframes sway { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
@@ -33,69 +25,88 @@
   .hotline { color:var(--gold-light); font-size:0.9rem; font-weight:700; text-decoration:none; text-align:right; }
   .hotline span { display:block; font-size:0.6rem; color:rgba(255,255,255,0.6); font-weight:400; }
 
+  /* ══════════════════════════════════════
+     🖼️ HƯỚNG DẪN BANNER:
+     1. Upload ảnh banner lên GitHub
+        Tên file: banner.jpg
+        Kích thước tốt nhất: 1200x350px
+     2. Xóa dòng: display:none  ở .banner img
+     3. Xóa thẻ .banner-placeholder
+     Link ảnh: https://toru2k5-stack.github.io/meothantai/banner.jpg
+  ══════════════════════════════════════ */
+  .banner { width:100%; overflow:hidden; }
+  .banner img { width:100%; max-height:280px; object-fit:cover; display:none; } /* Bỏ display:none khi có ảnh */
+  .banner-placeholder {
+    background:linear-gradient(135deg,var(--red-dark) 0%,var(--red) 50%,#b7410e 100%);
+    padding:28px 20px; text-align:center; color:white; position:relative; overflow:hidden;
+  }
+  .banner-placeholder::before { content:'🐱'; position:absolute; font-size:12rem; opacity:0.05; right:-20px; top:-20px; }
+  .banner-placeholder h2 { font-family:'Playfair Display',serif; font-size:clamp(1.4rem,4vw,2.2rem); margin-bottom:6px; }
+  .banner-placeholder h2 span { color:var(--gold-light); }
+  .banner-placeholder p { font-size:0.82rem; opacity:0.8; }
+
   /* CONTROLS */
   .controls-wrap { background:white; border-bottom:2px solid var(--border); }
   .controls { max-width:1200px; margin:0 auto; padding:10px 12px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-  .search-box {
-    flex:1; min-width:140px;
-    display:flex; align-items:center; gap:6px;
-    background:var(--cream); border:1.5px solid var(--border);
-    border-radius:20px; padding:7px 12px;
-  }
+  .search-box { flex:1; min-width:140px; display:flex; align-items:center; gap:6px; background:var(--cream); border:1.5px solid var(--border); border-radius:20px; padding:7px 12px; }
   .search-box input { border:none; background:none; outline:none; font-family:'Be Vietnam Pro',sans-serif; font-size:0.85rem; color:var(--ink); width:100%; }
   .filter-scroll { display:flex; gap:6px; overflow-x:auto; width:100%; padding-bottom:2px; scrollbar-width:none; }
   .filter-scroll::-webkit-scrollbar { display:none; }
-  .filter-btn {
-    padding:6px 14px; border-radius:20px; border:1.5px solid var(--border);
-    background:white; font-family:'Be Vietnam Pro',sans-serif;
-    font-size:0.78rem; font-weight:500; color:var(--warm-gray);
-    cursor:pointer; transition:all 0.2s; white-space:nowrap; flex-shrink:0;
-  }
+  .filter-btn { padding:6px 14px; border-radius:20px; border:1.5px solid var(--border); background:white; font-family:'Be Vietnam Pro',sans-serif; font-size:0.78rem; font-weight:500; color:var(--warm-gray); cursor:pointer; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
   .filter-btn.active { background:var(--red); border-color:var(--red); color:white; font-weight:600; }
   .controls-row2 { display:flex; align-items:center; gap:8px; width:100%; }
-  .price-filter select {
-    padding:6px 10px; border-radius:20px; border:1.5px solid var(--border);
-    font-family:'Be Vietnam Pro',sans-serif; font-size:0.78rem;
-    color:var(--ink); background:white; outline:none; cursor:pointer;
-  }
+  .price-filter select { padding:6px 10px; border-radius:20px; border:1.5px solid var(--border); font-family:'Be Vietnam Pro',sans-serif; font-size:0.78rem; color:var(--ink); background:white; outline:none; cursor:pointer; }
   .result-count { margin-left:auto; font-size:0.78rem; color:var(--warm-gray); font-weight:500; white-space:nowrap; }
 
-  /* GRID */
-  .catalog { max-width:1200px; margin:0 auto; padding:16px 10px 60px; }
-  .section-title {
-    display:flex; align-items:center; gap:10px;
-    font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--ink); margin-bottom:14px;
-  }
+  /* LOADING */
+  .loading { text-align:center; padding:60px 20px; color:var(--warm-gray); }
+  .loading .spin { font-size:2.5rem; animation:spin 1s linear infinite; display:inline-block; margin-bottom:12px; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+
+  /* CATALOG */
+  .catalog { max-width:1200px; margin:0 auto; padding:20px 12px 60px; }
+  .section-title { display:flex; align-items:center; gap:10px; font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--ink); margin-bottom:14px; }
   .section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+
+  /* ── TABS cho Box Mica & Kệ Đèn ── */
+  .tab-section { margin-bottom:32px; }
+  .tab-header { display:flex; gap:0; border-bottom:2px solid var(--border); margin-bottom:16px; overflow-x:auto; scrollbar-width:none; }
+  .tab-header::-webkit-scrollbar { display:none; }
+  .tab-btn {
+    padding:9px 18px; border:none; background:none; font-family:'Be Vietnam Pro',sans-serif;
+    font-size:0.82rem; font-weight:600; color:var(--warm-gray); cursor:pointer;
+    border-bottom:2px solid transparent; margin-bottom:-2px; white-space:nowrap;
+    transition:all 0.2s;
+  }
+  .tab-btn.active { color:var(--red); border-bottom-color:var(--red); }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+
+  /* GRID */
   .products-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
   @media(min-width:560px) { .products-grid { grid-template-columns:repeat(3,1fr); gap:14px; } }
   @media(min-width:860px) { .products-grid { grid-template-columns:repeat(4,1fr); gap:18px; } }
 
   /* CARD */
-  .card {
-    background:white; border-radius:12px; overflow:hidden;
-    border:1.5px solid var(--border);
-    transition:transform 0.25s,box-shadow 0.25s;
-    position:relative; display:flex; flex-direction:column;
-  }
+  .card { background:white; border-radius:12px; overflow:hidden; border:1.5px solid var(--border); transition:transform 0.25s,box-shadow 0.25s; position:relative; display:flex; flex-direction:column; }
   .card:hover { transform:translateY(-4px); box-shadow:0 10px 28px rgba(192,57,43,0.15); }
-  .card.out-of-stock { opacity:0.65; }
+  .card.out-of-stock { opacity:0.6; }
 
-  /* SLIDER */
-  .card-slider { position:relative; overflow:hidden; background:var(--gold-pale); }
+  /* CARD IMAGE */
+  /* ══════════════════════════════════════
+     🖼️ HƯỚNG DẪN ẢNH SẢN PHẨM:
+     - Cột ANH trong Sheets: điền tên file ảnh (vd: XH152.jpg)
+     - Upload ảnh lên GitHub cùng tên
+     - Link tự động: BASE_URL + tên file
+     - BASE_URL = https://toru2k5-stack.github.io/meothantai/
+  ══════════════════════════════════════ */
+  .card-img-wrap { position:relative; overflow:hidden; background:var(--gold-pale); }
   .slides-track { display:flex; transition:transform 0.35s ease; }
   .slide { min-width:100%; }
   .slide img { width:100%; height:170px; object-fit:cover; display:block; }
   .slide-placeholder { width:100%; height:170px; background:linear-gradient(135deg,var(--gold-pale),#faebd7); display:flex; align-items:center; justify-content:center; font-size:3.5rem; }
   @media(min-width:560px) { .slide img,.slide-placeholder { height:190px; } }
-
-  .slider-btn {
-    position:absolute; top:50%; transform:translateY(-50%);
-    background:rgba(0,0,0,0.3); color:white; border:none;
-    width:26px; height:26px; border-radius:50%; font-size:1rem;
-    cursor:pointer; display:flex; align-items:center; justify-content:center;
-    z-index:3; line-height:1;
-  }
+  .slider-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.3); color:white; border:none; width:26px; height:26px; border-radius:50%; font-size:1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:3; }
   .slider-btn.prev { left:5px; }
   .slider-btn.next { right:5px; }
   .slider-dots { position:absolute; bottom:5px; left:50%; transform:translateX(-50%); display:flex; gap:4px; }
@@ -109,18 +120,16 @@
   .badge-hot { background:var(--gold); color:white; }
   .badge-new { background:#27ae60; color:white; }
   .badge-soldout { background:#7f8c8d; color:white; }
+  .badge-kieu { background:#8e44ad; color:white; }
 
-  /* BODY */
+  /* CARD BODY */
   .card-body { padding:8px 10px 0; flex:1; }
   .card-name { font-family:'Playfair Display',serif; font-size:0.88rem; font-weight:700; color:var(--ink); margin-bottom:2px; line-height:1.3; }
   .card-size { font-size:0.68rem; color:var(--warm-gray); margin-bottom:3px; }
-  .card-desc { font-size:0.68rem; color:#666; line-height:1.4; }
+  .card-masp { font-size:0.65rem; color:#999; }
 
-  /* FOOTER */
-  .card-footer {
-    display:flex; align-items:center; justify-content:space-between;
-    padding:8px 10px; background:var(--gold-pale); border-top:1px solid var(--border); margin-top:8px;
-  }
+  /* CARD FOOTER */
+  .card-footer { display:flex; align-items:center; justify-content:space-between; padding:8px 10px; background:var(--gold-pale); border-top:1px solid var(--border); margin-top:8px; }
   .card-price { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; color:var(--red); }
   .card-price .unit { font-size:0.62rem; font-weight:400; color:var(--warm-gray); }
   .stock-info { display:flex; flex-direction:column; align-items:flex-end; gap:2px; }
@@ -134,28 +143,17 @@
   .stock-bar-fill.low { background:#e67e22; }
   .stock-bar-fill.out { background:#e74c3c; }
 
-  .contact-btn {
-    display:block; text-align:center; margin:7px 10px 4px;
-    padding:8px; background:var(--red); color:white;
-    border-radius:8px; font-size:0.76rem; font-weight:600;
-    border:none; cursor:pointer; transition:background 0.2s; width:calc(100% - 20px);
-  }
-  .contact-btn:hover { background:var(--red-dark); }
-  .contact-btn-zalo {
-    display:block; text-align:center; margin:0 10px 10px;
-    padding:7px; background:#0068ff; color:white;
-    border-radius:8px; font-size:0.74rem; font-weight:600;
-    text-decoration:none; transition:background 0.2s;
-  }
-  .contact-btn-zalo:hover { background:#0052cc; }
-  .card.out-of-stock .contact-btn,
-  .card.out-of-stock .contact-btn-zalo { background:#aaa; pointer-events:none; }
-  .toast {
-    position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(60px);
-    background:#222; color:white; padding:10px 22px; border-radius:24px;
-    font-size:0.85rem; font-weight:500; z-index:9999;
-    transition:transform 0.3s, opacity 0.3s; opacity:0; pointer-events:none; white-space:nowrap;
-  }
+  /* BUTTONS */
+  .btn-wrap { padding:7px 10px 10px; display:flex; flex-direction:column; gap:5px; }
+  .btn-copy { background:var(--red); color:white; border:none; border-radius:8px; padding:8px; font-family:'Be Vietnam Pro',sans-serif; font-size:0.76rem; font-weight:600; cursor:pointer; transition:background 0.2s; width:100%; }
+  .btn-copy:hover { background:var(--red-dark); }
+  .btn-zalo { background:#0068ff; color:white; border:none; border-radius:8px; padding:7px; font-family:'Be Vietnam Pro',sans-serif; font-size:0.74rem; font-weight:600; cursor:pointer; text-decoration:none; display:block; text-align:center; transition:background 0.2s; }
+  .btn-zalo:hover { background:#0052cc; }
+  .card.out-of-stock .btn-copy { background:#aaa; pointer-events:none; }
+  .card.out-of-stock .btn-zalo { background:#bbb; pointer-events:none; }
+
+  /* TOAST */
+  .toast { position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(60px); background:#222; color:white; padding:10px 22px; border-radius:24px; font-size:0.85rem; font-weight:500; z-index:9999; transition:transform 0.3s,opacity 0.3s; opacity:0; pointer-events:none; white-space:nowrap; }
   .toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
 
   /* NO RESULTS */
@@ -173,6 +171,7 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- HEADER -->
 <header>
   <div class="header-inner">
     <a href="#" class="logo">
@@ -188,43 +187,56 @@
   </div>
 </header>
 
+<!-- BANNER -->
+<!-- 🖼️ Khi có ảnh banner: xóa .banner-placeholder, bỏ display:none ở img -->
+<div class="banner">
+  <img id="banner-img" src="https://toru2k5-stack.github.io/meothantai/banner.jpg" alt="Banner" >
+  <div class="banner-placeholder">
+    <h2>Mèo Thần Tài 98 <span>🐱</span></h2>
+    <p>Gốm sứ cao cấp · May mắn · Tài lộc · Bình an</p>
+    <p style="margin-top:4px;font-size:0.75rem">📍 129 Thạch Hãn – Huế &nbsp;|&nbsp; 📞 0978 725 528</p>
+  </div>
+</div>
+
+<!-- CONTROLS -->
 <div class="controls-wrap">
   <div class="controls">
     <div class="search-box">
       <span>🔍</span>
-      <input type="text" id="searchInput" placeholder="Tìm sản phẩm..." oninput="filterProducts()">
+      <input type="text" id="searchInput" placeholder="Tìm sản phẩm, mã SP..." oninput="renderAll()">
     </div>
     <div class="filter-scroll">
       <button class="filter-btn active" onclick="setCategory('all',this)">Tất cả</button>
-      <button class="filter-btn" onclick="setCategory('Mèo Trung',this)">Mèo Trung</button>
-      <button class="filter-btn" onclick="setCategory('Mèo Đại',this)">Mèo Đại</button>
-      <button class="filter-btn" onclick="setCategory('Năng Lượng Mặt Trời',this)">Mặt Trời</button>
-      <button class="filter-btn" onclick="setCategory('Lẵng',this)">Lẵng</button>
+      <button class="filter-btn" onclick="setCategory('Mèo 1XX',this)">Mèo 1XX</button>
+      <button class="filter-btn" onclick="setCategory('Mèo 2XX',this)">Mèo 2XX</button>
+      <button class="filter-btn" onclick="setCategory('Mèo 3XX-4XX',this)">Mèo 3-4XX</button>
+      <button class="filter-btn" onclick="setCategory('Mèo 5XX',this)">Mèo 5XX</button>
+      <button class="filter-btn" onclick="setCategory('Mèo 6XX-8XX',this)">Mèo 6-8XX</button>
+      <button class="filter-btn" onclick="setCategory('Kệ Đèn',this)">Kệ Đèn</button>
       <button class="filter-btn" onclick="setCategory('Box Mica',this)">Box Mica</button>
     </div>
     <div class="controls-row2">
-      <select id="priceFilter" onchange="filterProducts()">
+      <select id="priceFilter" onchange="renderAll()">
         <option value="all">💰 Tất cả giá</option>
-        <option value="0-300000">Dưới 300k</option>
-        <option value="300000-600000">300k – 600k</option>
-        <option value="600000-1000000">600k – 1tr</option>
-        <option value="1000000-99999999">Trên 1 triệu</option>
+        <option value="0-200000">Dưới 200k</option>
+        <option value="200000-400000">200k – 400k</option>
+        <option value="400000-700000">400k – 700k</option>
+        <option value="700000-99999999">Trên 700k</option>
       </select>
-      <div class="result-count" id="resultCount">...</div>
+      <div class="result-count" id="resultCount">Đang tải...</div>
     </div>
   </div>
 </div>
 
-<section class="catalog">
-  <div class="section-title">🐱 Danh Sách Sản Phẩm</div>
-  <div class="products-grid" id="productGrid"></div>
-  <div class="no-results" id="noResults">
-    <div style="font-size:3rem;margin-bottom:10px">🐱</div>
-    <strong>Không tìm thấy sản phẩm</strong>
-    <p style="margin-top:6px;font-size:0.85rem">Hãy thử tìm kiếm khác hoặc xóa bộ lọc.</p>
+<!-- CATALOG -->
+<div class="catalog" id="catalog">
+  <div class="loading">
+    <div class="spin">🐱</div>
+    <div>Đang tải sản phẩm...</div>
   </div>
-</section>
+</div>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-cat">🐱</div>
   <h3>Shop Mèo Thần Tài 98</h3>
@@ -237,145 +249,273 @@
 </footer>
 
 <script>
-const BASE = "https://toru2k5-stack.github.io/meothantai/";
+// ══════════════════════════════════════
+// ⚙️ CẤU HÌNH – Chỉnh sửa 2 dòng này
+// ══════════════════════════════════════
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSSF-nJnA8Tg34qv8ocnHw81RX42qz1bguALq3kc7P1qAFYyPCN0zJM6L-gYWKGjtyPhcbdCiEadk7w/pub?gid=757565459&single=true&output=csv";
+const IMG_BASE = "https://toru2k5-stack.github.io/meothantai/";
+// ══════════════════════════════════════
 
-// ── SẢN PHẨM ──
-// Để thêm nhiều ảnh slide cho 1 sản phẩm: images:["a.jpg","b.jpg","c.jpg"]
-const products = [
-  { id:1,  name:"Mèo Thần Tài Đỏ – Trung S",      images:["1.jpg"],           category:"Mèo Trung",            size:"Cao 11cm",           price:120000,  stock:15, isHot:false, isNew:false, emoji:"🐱", desc:"Mèo thần tài màu đỏ cổ điển, kích thước nhỏ gọn" },
-  { id:2,  name:"Mèo Thần Tài Đỏ – Trung M",      images:["2.jpg"],           category:"Mèo Trung",            size:"Cao 18cm",           price:250000,  stock:8,  isHot:true,  isNew:false, emoji:"🐱", desc:"Size vừa, phù hợp bàn làm việc và quầy thu ngân" },
-  { id:3,  name:"Mèo Thần Tài Đỏ – Trung L",      images:["3.jpg"],           category:"Mèo Trung",            size:"Cao 23cm",           price:380000,  stock:3,  isHot:true,  isNew:false, emoji:"🐱", desc:"Size 23cm – kích thước nhỏ gọn, phù hợp mọi không gian" },
-  { id:4,  name:"Mèo Thần Tài Vàng – Trung",      images:["4.jpg"],           category:"Mèo Trung",            size:"Cao 18cm",           price:280000,  stock:0,  isHot:false, isNew:false, emoji:"🐱", desc:"Phiên bản vàng ánh kim sang trọng" },
-  { id:5,  name:"Mèo Thần Tài Đại – Loại I",      images:["5.jpg"],           category:"Mèo Đại",              size:"Cao 28cm",           price:650000,  stock:5,  isHot:true,  isNew:false, emoji:"🐱", desc:"Kích thước lớn, uy nghi, phù hợp cửa hàng kinh doanh" },
-  { id:6,  name:"Mèo Thần Tài Đại – Loại II",     images:[],                  category:"Mèo Đại",              size:"Cao 32cm",           price:850000,  stock:2,  isHot:true,  isNew:false, emoji:"🐱", desc:"Size lớn nhất dòng mèo đại, biểu tượng phú quý" },
-  { id:7,  name:"Mèo Thần Tài Đại Cao Cấp",       images:[],                  category:"Mèo Đại",              size:"Cao 32cm – Mạ vàng", price:1200000, stock:1,  isHot:false, isNew:true,  emoji:"🐱", desc:"Phiên bản cao cấp mạ vàng 24K, quà tặng ý nghĩa" },
-  { id:8,  name:"Mèo Vẫy Tay NLMT",               images:[],                  category:"Năng Lượng Mặt Trời",  size:"Cao 15cm",           price:180000,  stock:20, isHot:false, isNew:false, emoji:"🐱", desc:"Tự động vẫy tay bằng năng lượng mặt trời, vui nhộn" },
-  { id:9,  name:"Mèo Vẫy Tay NLMT – Size Lớn",    images:[],                  category:"Năng Lượng Mặt Trời",  size:"Cao 22cm",           price:320000,  stock:7,  isHot:false, isNew:true,  emoji:"🐱", desc:"Phiên bản lớn, vẫy tay liên tục thu hút tài lộc" },
-  { id:10, name:"Lẵng Mèo Thần Tài Mini",          images:[],                  category:"Lẵng",                 size:"Đường kính 20cm",    price:150000,  stock:12, isHot:false, isNew:false, emoji:"🧺", desc:"Lẵng mini xinh xắn, dễ tặng quà" },
-  { id:11, name:"Lẵng Mèo Thần Tài Chuẩn",        images:[],                  category:"Lẵng",                 size:"Đường kính 30cm",    price:280000,  stock:6,  isHot:true,  isNew:false, emoji:"🧺", desc:"Lẵng mèo trang trí đẹp, đủ phụ kiện đi kèm" },
-  { id:12, name:"Lẵng Mèo Cao Cấp – Quà Tặng",    images:[],                  category:"Lẵng",                 size:"Đường kính 40cm",    price:480000,  stock:4,  isHot:true,  isNew:true,  emoji:"🧺", desc:"Set quà tặng sang trọng, có hộp và ruy băng" },
-  { id:13, name:"Box Mica Mèo Thần Tài S",         images:[],                  category:"Box Mica",             size:"15×15×20cm",         price:90000,   stock:25, isHot:false, isNew:false, emoji:"📦", desc:"Hộp mica trong suốt, bảo vệ và trưng bày mèo đẹp" },
-  { id:14, name:"Box Mica Mèo Thần Tài M",         images:[],                  category:"Box Mica",             size:"20×20×28cm",         price:150000,  stock:18, isHot:false, isNew:false, emoji:"📦", desc:"Phù hợp với mèo trung, tặng kèm đèn LED" },
-  { id:15, name:"Box Mica Mèo Đại – Đèn LED",      images:[],                  category:"Box Mica",             size:"25×25×38cm",         price:250000,  stock:0,  isHot:false, isNew:true,  emoji:"📦", desc:"Hộp mica lớn có đèn LED chiếu sáng lung linh" },
-];
+// Danh mục Box Mica & Kệ Đèn có tab
+const TAB_CATEGORIES = {
+  "Box Mica": ["Tất cả", "Bóng", "Hoa", "Trơn"],
+  "Kệ Đèn":  ["Tất cả", "Gỗ", "LED"]
+};
 
+let allProducts = [];
 let activeCategory = 'all';
+let activeTabs = {};
 const slideIdx = {};
 
+// ── FETCH SHEETS ──
+async function fetchSheet() {
+  try {
+    const res = await fetch(SHEET_CSV_URL);
+    const text = await res.text();
+    allProducts = parseCSV(text);
+    renderAll();
+  } catch(e) {
+    document.getElementById('catalog').innerHTML = `
+      <div style="text-align:center;padding:60px 20px;color:#c0392b">
+        <div style="font-size:2.5rem;margin-bottom:12px">⚠️</div>
+        <strong>Không tải được dữ liệu</strong><br>
+        <span style="font-size:0.82rem;color:#888">Vui lòng thử lại sau</span>
+      </div>`;
+  }
+}
+
+// ── PARSE CSV ──
+function parseCSV(text) {
+  const lines = text.split('\n').filter(l => l.trim());
+  const headers = parseCSVLine(lines[0]).map(h => h.trim().toUpperCase());
+  const products = [];
+  for (let i = 1; i < lines.length; i++) {
+    const vals = parseCSVLine(lines[i]);
+    if (vals.every(v => !v.trim())) continue;
+    const obj = {};
+    headers.forEach((h, idx) => obj[h] = (vals[idx]||'').trim());
+    if (!obj['TEN']) continue;
+    products.push({
+      ten:      obj['TEN'] || '',
+      danhmuc:  obj['DANH_MUC'] || '',
+      kichthuoc:obj['KICH_THUOC'] || '',
+      gia:      parseInt(obj['GIA'])||0,
+      soluong:  parseInt(obj['SO_LUONG'])||0,
+      masp:     obj['MA_SP'] || '',
+      anh:      obj['ANH'] || '',
+      hot:      obj['HOT']==='1'||obj['HOT']==='co'||obj['HOT']==='có',
+      moi:      obj['MOI']==='1'||obj['MOI']==='co'||obj['MOI']==='có',
+      kieu:     obj['KIEU'] || '',  // Kiểu: Bóng/Hoa/Trơn/Gỗ/LED
+    });
+  }
+  return products;
+}
+
+function parseCSVLine(line) {
+  const result = []; let cur = ''; let inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c==='"') { inQ=!inQ; }
+    else if (c===','&&!inQ) { result.push(cur); cur=''; }
+    else { cur+=c; }
+  }
+  result.push(cur);
+  return result;
+}
+
+// ── FILTER ──
 function setCategory(cat, btn) {
   activeCategory = cat;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  filterProducts();
+  renderAll();
 }
 
-function fmt(p) { return p.toLocaleString('vi-VN') + 'đ'; }
-function sc(s) { return s===0?'out':s<=3?'low':'plenty'; }
-function sl(s) { return s===0?'Hết hàng':s<=3?`Còn ${s} ⚡`:`Còn ${s}`; }
-
-function slide(id, dir) {
-  const p = products.find(x => x.id===id);
-  if (!p || !p.images.length) return;
-  slideIdx[id] = ((slideIdx[id]||0) + dir + p.images.length) % p.images.length;
-  const el = document.getElementById('st-'+id);
-  if (el) el.style.transform = `translateX(-${slideIdx[id]*100}%)`;
-  document.querySelectorAll(`#dots-${id} .dot`).forEach((d,i) => d.classList.toggle('active', i===slideIdx[id]));
-}
-
-function buildSlider(p) {
-  const imgs = p.images || [];
-  if (!imgs.length) return `<div class="slide-placeholder">${p.emoji}</div>`;
-  const errHandler = `this.style.display='none';this.parentNode.innerHTML='<div class=\\'slide-placeholder\\'>${p.emoji}</div>'`;
-  if (imgs.length === 1) {
-    return `<img src="${BASE}${imgs[0]}" alt="${p.name}" style="width:100%;height:170px;object-fit:cover;display:block" onerror="${errHandler}">`;
-  }
-  const slides = imgs.map(img => `<div class="slide"><img src="${BASE}${img}" alt="${p.name}" onerror="${errHandler}"></div>`).join('');
-  const dots = imgs.map((_,i) => `<div class="dot${i===0?' active':''}"></div>`).join('');
-  return `
-    <div class="slides-track" id="st-${p.id}">${slides}</div>
-    <button class="slider-btn prev" onclick="slide(${p.id},-1)">‹</button>
-    <button class="slider-btn next" onclick="slide(${p.id},1)">›</button>
-    <div class="slider-dots" id="dots-${p.id}">${dots}</div>`;
-}
-
-function filterProducts() {
+function getFiltered() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   const pv = document.getElementById('priceFilter').value;
   let [pMin,pMax] = [0,99999999];
   if (pv!=='all') [pMin,pMax] = pv.split('-').map(Number);
 
-  const filtered = products.filter(p => {
-    const mC = activeCategory==='all' || p.category===activeCategory;
-    const mQ = p.name.toLowerCase().includes(q)||p.category.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q);
-    const mP = p.price>=pMin && p.price<=pMax;
+  return allProducts.filter(p => {
+    const mC = activeCategory==='all' || p.danhmuc===activeCategory;
+    const mQ = !q || p.ten.toLowerCase().includes(q) || p.masp.toLowerCase().includes(q) || p.danhmuc.toLowerCase().includes(q);
+    const mP = p.gia>=pMin && p.gia<=pMax;
     return mC && mQ && mP;
+  });
+}
+
+// ── RENDER ALL ──
+function renderAll() {
+  const filtered = getFiltered();
+  const catalog = document.getElementById('catalog');
+
+  // Sort: hết hàng xuống cuối
+  filtered.sort((a,b) => {
+    if (a.soluong===0 && b.soluong>0) return 1;
+    if (a.soluong>0 && b.soluong===0) return -1;
+    return 0;
   });
 
   document.getElementById('resultCount').textContent = filtered.length + ' sản phẩm';
-  const grid = document.getElementById('productGrid');
-  const noRes = document.getElementById('noResults');
 
-  if (!filtered.length) { grid.innerHTML=''; noRes.style.display='block'; return; }
-  noRes.style.display='none';
+  if (!filtered.length) {
+    catalog.innerHTML = `<div class="no-results" style="display:block;text-align:center;padding:60px 20px;color:var(--warm-gray)"><div style="font-size:3rem;margin-bottom:10px">🐱</div><strong>Không tìm thấy sản phẩm</strong></div>`;
+    return;
+  }
 
-  grid.innerHTML = filtered.map(p => {
-    const oos = p.stock===0;
-    const s = sc(p.stock);
-    const pct = Math.min(100,(p.stock/20)*100);
-    const msg = encodeURIComponent(`Dạ em muốn đặt: ${p.name} (${p.size}) - Giá: ${fmt(p.price)}. Shop còn hàng không ạ?`);
-    return `<div class="card${oos?' out-of-stock':''}">
-  <div class="card-badge-wrap">
-    <span class="badge badge-cat">${p.category}</span>
-    ${p.isHot?'<span class="badge badge-hot">🔥 Hot</span>':''}
-    ${p.isNew?'<span class="badge badge-new">✨ Mới</span>':''}
-    ${oos?'<span class="badge badge-soldout">Hết hàng</span>':''}
-  </div>
-  <div class="card-slider">${buildSlider(p)}</div>
-  <div class="card-body">
-    <div class="card-name">${p.name}</div>
-    <div class="card-size">📐 ${p.size}</div>
-    <div class="card-desc">${p.desc}</div>
-  </div>
-  <div class="card-footer">
-    <div class="card-price">${fmt(p.price)}<span class="unit"> /cái</span></div>
-    <div class="stock-info">
-      <span class="stock-count ${s}">${sl(p.stock)}</span>
-      <div class="stock-bar"><div class="stock-bar-fill ${s}" style="width:${pct}%"></div></div>
-    </div>
-  </div>
-    ${oos
-      ? `<button class="contact-btn" disabled>⚠️ Hết hàng – Liên hệ đặt trước</button>`
-      : `<button class="contact-btn" onclick="copyAndZalo('${p.name}','${p.size}','${fmt(p.price)}')">📋 Copy thông tin & Mở Zalo</button>
-         <a href="https://zalo.me/0358014085" target="_blank" class="contact-btn-zalo">💬 Mở Zalo ngay</a>`
+  // Nhóm theo danh mục
+  const grouped = {};
+  filtered.forEach(p => {
+    if (!grouped[p.danhmuc]) grouped[p.danhmuc] = [];
+    grouped[p.danhmuc].push(p);
+  });
+
+  // Thứ tự danh mục
+  const catOrder = ['Mèo 1XX','Mèo 2XX','Mèo 3XX-4XX','Mèo 5XX','Mèo 6XX-8XX','Kệ Đèn','Box Mica'];
+  const cats = catOrder.filter(c => grouped[c]);
+  Object.keys(grouped).forEach(c => { if (!cats.includes(c)) cats.push(c); });
+
+  let html = '';
+  cats.forEach(cat => {
+    const prods = grouped[cat];
+    const emoji = cat.includes('Kệ') ? '🪔' : cat.includes('Box') ? '📦' : '🐱';
+
+    if (TAB_CATEGORIES[cat]) {
+      // Hiển thị dạng TAB
+      const tabs = TAB_CATEGORIES[cat];
+      if (!activeTabs[cat]) activeTabs[cat] = 'Tất cả';
+      html += `<div class="tab-section">
+        <div class="section-title">${emoji} ${cat}</div>
+        <div class="tab-header">`;
+      tabs.forEach(tab => {
+        const active = activeTabs[cat]===tab ? 'active':'';
+        html += `<button class="tab-btn ${active}" onclick="setTab('${cat}','${tab}')">${tab}</button>`;
+      });
+      html += `</div>`;
+      tabs.forEach(tab => {
+        const tabProds = tab==='Tất cả' ? prods : prods.filter(p => (p.kieu||'').toLowerCase()===tab.toLowerCase());
+        const activeClass = activeTabs[cat]===tab ? 'active':'';
+        html += `<div class="tab-content ${activeClass}" id="tab-${cat}-${tab}">
+          <div class="products-grid">${tabProds.map(p => cardHTML(p)).join('')}</div>
+        </div>`;
+      });
+      html += `</div>`;
+    } else {
+      // Hiển thị dạng grid bình thường
+      html += `<div style="margin-bottom:28px">
+        <div class="section-title">${emoji} ${cat}</div>
+        <div class="products-grid">${prods.map(p => cardHTML(p)).join('')}</div>
+      </div>`;
     }
-</div>`;
-  }).join('');
+  });
+
+  catalog.innerHTML = html;
 }
 
+function setTab(cat, tab) {
+  activeTabs[cat] = tab;
+  renderAll();
+}
+
+// ── CARD HTML ──
+function cardHTML(p) {
+  const oos = p.soluong===0;
+  const sc = oos?'out':p.soluong<=3?'low':'plenty';
+  const sl = oos?'Hết hàng':p.soluong<=3?`Còn ${p.soluong} ⚡`:`Còn ${p.soluong}`;
+  const pct = Math.min(100,(p.soluong/20)*100);
+  const fmt = n => n.toLocaleString('vi-VN')+'đ';
+
+  // Ảnh
+  let imgHTML = '';
+  if (p.anh) {
+    const imgs = p.anh.split(',').map(s=>s.trim()).filter(Boolean);
+    if (imgs.length===1) {
+      imgHTML = `<div class="card-img-wrap">
+        <div class="slides-track"><div class="slide">
+          <img src="${IMG_BASE}${imgs[0]}" alt="${p.ten}" onerror="this.parentNode.innerHTML='<div class=\\'slide-placeholder\\'>🐱</div>'">
+        </div></div>
+      </div>`;
+    } else {
+      const id = p.masp||Math.random().toString(36).slice(2);
+      const slides = imgs.map(img=>`<div class="slide"><img src="${IMG_BASE}${img}" alt="${p.ten}" onerror="this.parentNode.innerHTML='<div class=\\'slide-placeholder\\'>🐱</div>'"></div>`).join('');
+      const dots = imgs.map((_,i)=>`<div class="dot${i===0?' active':''}"></div>`).join('');
+      imgHTML = `<div class="card-img-wrap">
+        <div class="slides-track" id="st-${id}">${slides}</div>
+        <button class="slider-btn prev" onclick="slide('${id}',${imgs.length},-1)">‹</button>
+        <button class="slider-btn next" onclick="slide('${id}',${imgs.length},1)">›</button>
+        <div class="slider-dots" id="dots-${id}">${dots}</div>
+      </div>`;
+    }
+  } else {
+    const emoji = p.danhmuc.includes('Kệ')?'🪔':p.danhmuc.includes('Box')?'📦':'🐱';
+    imgHTML = `<div class="card-img-wrap"><div class="slide-placeholder">${emoji}</div></div>`;
+  }
+
+  const msg = encodeURIComponent(`Dạ em muốn đặt:\n🐱 ${p.ten}\n📐 ${p.kichthuoc}\n💰 ${fmt(p.gia)}\nMã: ${p.masp}\nShop còn hàng không ạ?`);
+
+  return `<div class="card${oos?' out-of-stock':''}">
+    <div class="card-badge-wrap">
+      ${p.hot?'<span class="badge badge-hot">🔥 Hot</span>':''}
+      ${p.moi?'<span class="badge badge-new">✨ Mới</span>':''}
+      ${p.kieu?`<span class="badge badge-kieu">${p.kieu}</span>`:''}
+      ${oos?'<span class="badge badge-soldout">Hết hàng</span>':''}
+    </div>
+    ${imgHTML}
+    <div class="card-body">
+      <div class="card-name">${p.ten}</div>
+      <div class="card-size">📐 ${p.kichthuoc}</div>
+      ${p.masp?`<div class="card-masp">Mã: ${p.masp}</div>`:''}
+    </div>
+    <div class="card-footer">
+      <div class="card-price">${fmt(p.gia)}<span class="unit"> /cái</span></div>
+      <div class="stock-info">
+        <span class="stock-count ${sc}">${sl}</span>
+        <div class="stock-bar"><div class="stock-bar-fill ${sc}" style="width:${pct}%"></div></div>
+      </div>
+    </div>
+    <div class="btn-wrap">
+      ${oos
+        ? `<button class="btn-copy" disabled>⚠️ Hết hàng</button>`
+        : `<button class="btn-copy" onclick="copyInfo('${p.ten.replace(/'/g,"\\'")}','${p.kichthuoc}','${fmt(p.gia)}','${p.masp}')">📋 Copy thông tin đặt hàng</button>
+           <a href="https://zalo.me/0358014085" target="_blank" class="btn-zalo">💬 Mở Zalo</a>`
+      }
+    </div>
+  </div>`;
+}
+
+// ── SLIDER ──
+function slide(id, total, dir) {
+  slideIdx[id] = ((slideIdx[id]||0)+dir+total)%total;
+  const el = document.getElementById('st-'+id);
+  if (el) el.style.transform = `translateX(-${slideIdx[id]*100}%)`;
+  document.querySelectorAll(`#dots-${id} .dot`).forEach((d,i)=>d.classList.toggle('active',i===slideIdx[id]));
+}
+
+// ── COPY + ZALO ──
 let toastTimer;
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+  toastTimer = setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-function copyAndZalo(name, size, price) {
-  const text = `Dạ em muốn đặt:\n🐱 ${name}\n📐 ${size}\n💰 ${price}\nShop còn hàng không ạ?`;
+function copyInfo(ten, size, gia, masp) {
+  const text = `Dạ em muốn đặt:\n🐱 ${ten}\n📐 ${size}\n💰 ${gia}\nMã: ${masp}\nShop còn hàng không ạ?`;
   navigator.clipboard.writeText(text)
-    .then(() => showToast('✅ Đã copy! Mở Zalo dán vào gửi shop nhé'))
-    .catch(() => {
-      const ta = document.createElement('textarea');
-      ta.value = text; document.body.appendChild(ta);
-      ta.select(); document.execCommand('copy');
-      document.body.removeChild(ta);
+    .then(()=>showToast('✅ Đã copy! Mở Zalo dán vào gửi shop nhé'))
+    .catch(()=>{
+      const ta=document.createElement('textarea');
+      ta.value=text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
       showToast('✅ Đã copy! Mở Zalo dán vào gửi shop nhé');
     });
-  setTimeout(() => window.open('https://zalo.me/0358014085','_blank'), 400);
 }
 
-filterProducts();
+// ── INIT ──
+fetchSheet();
 </script>
 </body>
 </html>
