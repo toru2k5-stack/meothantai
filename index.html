@@ -293,7 +293,7 @@ function parseCSV(text) {
       ten:      obj['TEN'] || '',
       danhmuc:  obj['DANH_MUC'] || '',
       kichthuoc:obj['KICH_THUOC'] || '',
-      gia: (parseInt(obj['GIA'])||0) * 1000,
+      gia: (parseInt(obj['GIA'])||0) * ,
       soluong:  parseInt(obj['SO_LUONG'])||0,
       masp:     obj['MA_SP'] || '',
       anh:      obj['ANH'] || '',
@@ -418,7 +418,7 @@ function cardHTML(p) {
   const sc = oos?'out':p.soluong<=3?'low':'plenty';
   const sl = oos?'Hết hàng':p.soluong<=3?`Còn ${p.soluong} ⚡`:`Còn ${p.soluong}`;
   const pct = Math.min(100,(p.soluong/20)*100);
-  const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
+const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
 
   // Ảnh
   let imgHTML = '';
