@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mèo Thần Tài 98 – Huế</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --gold:#c8922a; --gold-light:#f0c96b; --gold-pale:#fdf3dc;
@@ -209,13 +209,14 @@
       <button class="filter-btn" onclick="setCategory('Box Mica',this)">Box Mica</button>
     </div>
     <div class="controls-row2">
-      <select id="priceFilter" onchange="renderAll()">
-        <option value="all">💰 Tất cả giá</option>
-        <option value="0-200000">Dưới 200k</option>
-        <option value="200000-400000">200k – 400k</option>
-        <option value="400000-700000">400k – 700k</option>
-        <option value="700000-99999999">Trên 700k</option>
-      </select>
+ <select id="priceFilter" onchange="renderAll()">
+  <option value="all">💰 Tất cả giá</option>
+  <option value="0-200000">Dưới 200k</option>
+  <option value="200000-400000">200k – 400k</option>
+  <option value="400000-600000">400k – 600k</option>
+  <option value="600000-800000">600k – 800k</option>
+  <option value="800000-99999999">Trên 800k</option>
+</select>
       <div class="result-count" id="resultCount">Đang tải...</div>
     </div>
   </div>
@@ -292,7 +293,7 @@ function parseCSV(text) {
       ten:      obj['TEN'] || '',
       danhmuc:  obj['DANH_MUC'] || '',
       kichthuoc:obj['KICH_THUOC'] || '',
-      gia:      parseInt(obj['GIA'])||0,
+      gia: (parseInt(obj['GIA'])||0) * 1000,
       soluong:  parseInt(obj['SO_LUONG'])||0,
       masp:     obj['MA_SP'] || '',
       anh:      obj['ANH'] || '',
@@ -417,7 +418,7 @@ function cardHTML(p) {
   const sc = oos?'out':p.soluong<=3?'low':'plenty';
   const sl = oos?'Hết hàng':p.soluong<=3?`Còn ${p.soluong} ⚡`:`Còn ${p.soluong}`;
   const pct = Math.min(100,(p.soluong/20)*100);
-  const fmt = n => n.toLocaleString('vi-VN')+'đ';
+  const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
 
   // Ảnh
   let imgHTML = '';
