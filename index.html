@@ -417,7 +417,7 @@ function cardHTML(p) {
   const oos = p.soluong===0;
   const sc = oos?'out':p.soluong<=3?'low':'plenty';
   const sl = oos?'Hết hàng':'Còn hàng';
-  const pct = Math.min(100,(p.soluong/20)*100);
+ 
 const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
 
   // Ảnh
@@ -465,7 +465,7 @@ const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
       <div class="card-price">${fmt(p.gia)}<span class="unit"> /cái</span></div>
       <div class="stock-info">
         <span class="stock-count ${sc}">${sl}</span>
-        <div class="stock-bar"><div class="stock-bar-fill ${sc}" style="width:${pct}%"></div></div>
+       
       </div>
     </div>
     <div class="btn-wrap">
