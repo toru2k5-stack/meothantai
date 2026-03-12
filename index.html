@@ -470,10 +470,10 @@ const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
     </div>
     <div class="btn-wrap">
       ${oos
-        `<button class="btn-copy" onclick="copyInfo('${p.ten.replace(/'/g,"\\'")}','${p.kichthuoc}','${fmt(p.gia)}','${p.masp}')">📋 Copy thông tin đặt hàng</button>
+        ? `<button class="btn-copy" disabled>⚠️ Hết hàng</button>`
+        : `<button class="btn-copy" onclick="copyInfo('${p.ten.replace(/'/g,"\\'")}','${p.kichthuoc}','${fmt(p.gia)}','${p.masp}')">📋 Copy thông tin đặt hàng</button>
          <a href="https://zalo.me/0358014085?text=${msg}" target="_blank" class="btn-zalo">💬 Nhắn Zalo</a>
          <a href="https://m.me/61555618073597" target="_blank" class="btn-zalo" style="background:#0084ff">💬 Nhắn Messenger</a>`
-      
       }
     </div>
   </div>`;
