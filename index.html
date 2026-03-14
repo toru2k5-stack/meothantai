@@ -207,6 +207,7 @@
       <button class="filter-btn" onclick="setCategory('Mèo 6XX-8XX',this)">Mèo 6-8XX</button>
       <button class="filter-btn" onclick="setCategory('Kệ Đèn',this)">Kệ Đèn</button>
       <button class="filter-btn" onclick="setCategory('Box Mica',this)">Box Mica</button>
+      <button class="filter-btn" onclick="setCategory('Lẵng',this)">Lẵng</button>
     </div>
     <div class="controls-row2">
  <select id="priceFilter" onchange="renderAll()">
@@ -366,7 +367,7 @@ function renderAll() {
   });
 
   // Thứ tự danh mục
-  const catOrder = ['Mèo 1XX','Mèo 2XX','Mèo 3XX-4XX','Mèo 5XX','Mèo 6XX-8XX','Kệ Đèn','Box Mica'];
+ const catOrder = ['Mèo 1XX','Mèo 2XX','Mèo 3XX-4XX','Mèo 5XX','Mèo 6XX-8XX','Kệ Đèn','Box Mica','Lẵng'];
   const cats = catOrder.filter(c => grouped[c]);
   Object.keys(grouped).forEach(c => { if (!cats.includes(c)) cats.push(c); });
 
