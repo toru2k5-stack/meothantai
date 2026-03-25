@@ -228,7 +228,7 @@ const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSSF-nJnA
 const IMG_BASE = "https://toru2k5-stack.github.io/meothantai/";
 
 const TAB_CATEGORIES = {
-  "Box Mica": ["Tất cả", "Bóng", "Hoa", "Trơn"],
+  "Box Mica": ["Tất cả", "Bóng", "Hoa", "Tròn"],
   "Kệ Đèn":  ["Tất cả", "Gỗ", "LED"]
 };
 
@@ -391,7 +391,8 @@ function renderAll() {
       });
       html += `</div>`;
       tabs.forEach(tab => {
-        const tabProds = tab==='Tất cả' ? prods : prods.filter(p => (p.kieu||'').toLowerCase()===tab.toLowerCase());
+        const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/gi,'d').toLowerCase().trim();
+        const tabProds = tab==='Tất cả' ? prods : prods.filter(p => norm(p.kieu||'')===norm(tab));
         const activeClass = activeTabs[cat]===tab ? 'active':'';
         html += `<div class="tab-content ${activeClass}" id="tab-${cat.replace(/\s/g,'-')}-${tab}">
           <div class="products-grid">${tabProds.map(p => cardHTML(p)).join('')}</div>
