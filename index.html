@@ -191,10 +191,11 @@
         <select id="priceFilter" onchange="renderAll()">
           <option value="all">💰 Tất cả giá</option>
           <option value="0-200000">Dưới 200k</option>
-          <option value="200000-400000">200k – 400k</option>
-          <option value="400000-600000">400k – 600k</option>
-          <option value="600000-800000">600k – 800k</option>
-          <option value="800000-99999999">Trên 800k</option>
+          <option value="200000-300000">200k – 300k</option>
+          <option value="300000-500000">300k – 500k</option>
+          <option value="500000-700000">500k – 700k</option>
+          <option value="700000-1000000">700k – 1 triệu</option>
+          <option value="1000000-99999999">Trên 1 triệu</option>
         </select>
       </div>
       <div class="result-count" id="resultCount">Đang tải...</div>
@@ -252,9 +253,26 @@ async function fetchSheet() {
   }
 }
 
+// Chuẩn hóa tên cột: bỏ dấu tiếng Việt, uppercase, chỉ giữ chữ/số/gạch dưới
+function normalizeHeader(h) {
+  return h.trim()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'') // bỏ dấu
+    .replace(/đ/gi,'d')
+    .toUpperCase()
+    .replace(/[^A-Z0-9_]/g,'_')
+    .replace(/_+/g,'_')
+    .replace(/^_|_$/g,'');
+}
+
 function parseCSV(text) {
   const lines = text.split('\n').filter(l => l.trim());
-  const headers = parseCSVLine(lines[0]).map(h => h.trim().toUpperCase());
+  const rawHeaders = parseCSVLine(lines[0]);
+  // Lưu cả header gốc (normalized) lẫn map để tra
+  const headers = rawHeaders.map(h => normalizeHeader(h));
+
+  // Debug: log headers ra console để kiểm tra
+  console.log('📋 Headers từ sheet:', headers);
+
   const products = [];
   for (let i = 1; i < lines.length; i++) {
     const vals = parseCSVLine(lines[i]);
@@ -263,10 +281,13 @@ function parseCSV(text) {
     headers.forEach((h, idx) => obj[h] = (vals[idx]||'').trim());
     if (!obj['TEN']) continue;
 
-    // ✅ SỬA: Đọc giá đúng — xử lý cả số ngàn (vd: "150" = 150.000đ) và số đầy đủ
+    // Đọc giá — hỗ trợ nhập tắt: 298 = 298.000đ
     let giaRaw = parseInt((obj['GIA']||'0').replace(/[^\d]/g,'')) || 0;
-    // Nếu giá nhỏ hơn 1000 thì nhân 1000 (dạng nhập tắt: 150 = 150.000đ)
     if (giaRaw > 0 && giaRaw < 1000) giaRaw = giaRaw * 1000;
+
+    // Đọc HOAT_DONG — tìm key chứa "HOAT" trong obj
+    const hoatKey = Object.keys(obj).find(k => k.includes('HOAT')) || '';
+    const hoatdong = hoatKey ? obj[hoatKey] : '';
 
     products.push({
       ten:       obj['TEN'] || '',
@@ -279,10 +300,10 @@ function parseCSV(text) {
       hot:       obj['HOT']==='1'||obj['HOT']==='co'||obj['HOT']==='có',
       moi:       obj['MOI']==='1'||obj['MOI']==='co'||obj['MOI']==='có',
       kieu:      obj['KIEU'] || '',
-      // ✅ MỚI: Đọc cột HOAT_DONG
-      hoatdong:  obj['HOAT_DONG'] || obj['HOẠT_ĐỘNG'] || obj['HOAT DONG'] || '',
+      hoatdong:  hoatdong,
     });
   }
+  console.log(`✅ Đọc được ${products.length} sản phẩm, ví dụ giá:`, products[0]?.gia);
   return products;
 }
 
