@@ -25,11 +25,9 @@
   .hotline { color:var(--gold-light); font-size:0.9rem; font-weight:700; text-decoration:none; text-align:right; }
   .hotline span { display:block; font-size:0.6rem; color:rgba(255,255,255,0.6); font-weight:400; }
 
-
-  ══════════════════════════════════════ */
+  /* BANNER */
   .banner { width:100%; overflow:hidden; }
-  .banner img { width:100%; max-height:280px; object-fit:cover; } 
-
+  .banner img { width:100%; max-height:280px; object-fit:cover; }
 
   /* CONTROLS */
   .controls-wrap { background:white; border-bottom:2px solid var(--border); }
@@ -54,7 +52,7 @@
   .section-title { display:flex; align-items:center; gap:10px; font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--ink); margin-bottom:14px; }
   .section-title::after { content:''; flex:1; height:1px; background:var(--border); }
 
-  /* ── TABS cho Box Mica & Kệ Đèn ── */
+  /* TABS */
   .tab-section { margin-bottom:32px; }
   .tab-header { display:flex; gap:0; border-bottom:2px solid var(--border); margin-bottom:16px; overflow-x:auto; scrollbar-width:none; }
   .tab-header::-webkit-scrollbar { display:none; }
@@ -79,13 +77,6 @@
   .card.out-of-stock { opacity:0.6; }
 
   /* CARD IMAGE */
-  /* ══════════════════════════════════════
-     🖼️ HƯỚNG DẪN ẢNH SẢN PHẨM:
-     - Cột ANH trong Sheets: điền tên file ảnh (vd: XH152.jpg)
-     - Upload ảnh lên GitHub cùng tên
-     - Link tự động: BASE_URL + tên file
-     - BASE_URL = https://toru2k5-stack.github.io/meothantai/
-  ══════════════════════════════════════ */
   .card-img-wrap { position:relative; overflow:hidden; background:var(--gold-pale); }
   .slides-track { display:flex; transition:transform 0.35s ease; }
   .slide { min-width:100%; }
@@ -123,11 +114,6 @@
   .stock-count.plenty { color:#27ae60; }
   .stock-count.low { color:#e67e22; }
   .stock-count.out { color:#e74c3c; }
-  .stock-bar { width:48px; height:4px; background:#e0e0e0; border-radius:3px; overflow:hidden; }
-  .stock-bar-fill { height:100%; border-radius:3px; }
-  .stock-bar-fill.plenty { background:#27ae60; }
-  .stock-bar-fill.low { background:#e67e22; }
-  .stock-bar-fill.out { background:#e74c3c; }
 
   /* BUTTONS */
   .btn-wrap { padding:7px 10px 10px; display:flex; flex-direction:column; gap:5px; }
@@ -174,9 +160,8 @@
 </header>
 
 <!-- BANNER -->
-<!-- 🖼️ Khi có ảnh banner: xóa .banner-placeholder, bỏ display:none ở img -->
 <div class="banner">
-  <img id="banner-img" src="https://toru2k5-stack.github.io/meothantai/banner.jpg" alt="Banner" >
+  <img id="banner-img" src="https://toru2k5-stack.github.io/meothantai/banner.jpg" alt="Banner">
   <div class="banner-placeholder">
     <h2>Mèo Thần Tài 98 <span>🐱</span></h2>
     <p>Gốm sứ cao cấp · May mắn · Tài lộc · Bình an</p>
@@ -197,20 +182,23 @@
       <button class="filter-btn" onclick="setCategory('Mèo 2XX',this)">Mèo 2XX</button>
       <button class="filter-btn" onclick="setCategory('Mèo 3XX-4XX',this)">Mèo 3-4XX</button>
       <button class="filter-btn" onclick="setCategory('Mèo 5XX',this)">Mèo 5XX</button>
-      <button class="filter-btn" onclick="setCategory('Mèo 6XX-8XX',this)">Mèo 6-8XX</button>
+      <!-- ✅ ĐÃ ĐỔI: Mèo 6XX-8XX → Trên 6XX -->
+      <button class="filter-btn" onclick="setCategory('Trên 6XX',this)">Trên 6XX</button>
       <button class="filter-btn" onclick="setCategory('Kệ Đèn',this)">Kệ Đèn</button>
       <button class="filter-btn" onclick="setCategory('Box Mica',this)">Box Mica</button>
       <button class="filter-btn" onclick="setCategory('Lẵng',this)">Lẵng</button>
+      <!-- ✅ ĐÃ THÊM: Phụ Kiện -->
+      <button class="filter-btn" onclick="setCategory('Phụ Kiện',this)">Phụ Kiện</button>
     </div>
     <div class="controls-row2">
- <select id="priceFilter" onchange="renderAll()">
-  <option value="all">💰 Tất cả giá</option>
-  <option value="0-200000">Dưới 200k</option>
-  <option value="200000-400000">200k – 400k</option>
-  <option value="400000-600000">400k – 600k</option>
-  <option value="600000-800000">600k – 800k</option>
-  <option value="800000-99999999">Trên 800k</option>
-</select>
+      <select id="priceFilter" onchange="renderAll()">
+        <option value="all">💰 Tất cả giá</option>
+        <option value="0-200000">Dưới 200k</option>
+        <option value="200000-400000">200k – 400k</option>
+        <option value="400000-600000">400k – 600k</option>
+        <option value="600000-800000">600k – 800k</option>
+        <option value="800000-99999999">Trên 800k</option>
+      </select>
       <div class="result-count" id="resultCount">Đang tải...</div>
     </div>
   </div>
@@ -237,14 +225,9 @@
 </footer>
 
 <script>
-// ══════════════════════════════════════
-// ⚙️ CẤU HÌNH – Chỉnh sửa 2 dòng này
-// ══════════════════════════════════════
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSSF-nJnA8Tg34qv8ocnHw81RX42qz1bguALq3kc7P1qAFYyPCN0zJM6L-gYWKGjtyPhcbdCiEadk7w/pub?gid=757565459&single=true&output=csv";
 const IMG_BASE = "https://toru2k5-stack.github.io/meothantai/";
-// ══════════════════════════════════════
 
-// Danh mục Box Mica & Kệ Đèn có tab
 const TAB_CATEGORIES = {
   "Box Mica": ["Tất cả", "Bóng", "Hoa", "Trơn"],
   "Kệ Đèn":  ["Tất cả", "Gỗ", "LED"]
@@ -255,7 +238,6 @@ let activeCategory = 'all';
 let activeTabs = {};
 const slideIdx = {};
 
-// ── FETCH SHEETS ──
 async function fetchSheet() {
   try {
     const res = await fetch(SHEET_CSV_URL);
@@ -272,7 +254,6 @@ async function fetchSheet() {
   }
 }
 
-// ── PARSE CSV ──
 function parseCSV(text) {
   const lines = text.split('\n').filter(l => l.trim());
   const headers = parseCSVLine(lines[0]).map(h => h.trim().toUpperCase());
@@ -287,13 +268,13 @@ function parseCSV(text) {
       ten:      obj['TEN'] || '',
       danhmuc:  obj['DANH_MUC'] || '',
       kichthuoc:obj['KICH_THUOC'] || '',
-      gia: (parseInt(obj['GIA'])||0) ,
+      gia:      (parseInt(obj['GIA'])||0),
       soluong:  parseInt(obj['SO_LUONG'])||0,
       masp:     obj['MA_SP'] || '',
       anh:      obj['ANH'] || '',
       hot:      obj['HOT']==='1'||obj['HOT']==='co'||obj['HOT']==='có',
       moi:      obj['MOI']==='1'||obj['MOI']==='co'||obj['MOI']==='có',
-      kieu:     obj['KIEU'] || '',  // Kiểu: Bóng/Hoa/Trơn/Gỗ/LED
+      kieu:     obj['KIEU'] || '',
     });
   }
   return products;
@@ -311,7 +292,6 @@ function parseCSVLine(line) {
   return result;
 }
 
-// ── FILTER ──
 function setCategory(cat, btn) {
   activeCategory = cat;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -333,12 +313,10 @@ function getFiltered() {
   });
 }
 
-// ── RENDER ALL ──
 function renderAll() {
   const filtered = getFiltered();
   const catalog = document.getElementById('catalog');
 
-  // Sort: hết hàng xuống cuối
   filtered.sort((a,b) => {
     if (a.soluong===0 && b.soluong>0) return 1;
     if (a.soluong>0 && b.soluong===0) return -1;
@@ -352,25 +330,24 @@ function renderAll() {
     return;
   }
 
-  // Nhóm theo danh mục
   const grouped = {};
   filtered.forEach(p => {
     if (!grouped[p.danhmuc]) grouped[p.danhmuc] = [];
     grouped[p.danhmuc].push(p);
   });
 
-  // Thứ tự danh mục
- const catOrder = ['Mèo 1XX','Mèo 2XX','Mèo 3XX-4XX','Mèo 5XX','Mèo 6XX-8XX','Kệ Đèn','Box Mica','Lẵng'];
+  // ✅ ĐÃ CẬP NHẬT: Mèo 6XX-8XX → Trên 6XX, thêm Phụ Kiện cuối
+  const catOrder = ['Mèo 1XX','Mèo 2XX','Mèo 3XX-4XX','Mèo 5XX','Trên 6XX','Kệ Đèn','Box Mica','Lẵng','Phụ Kiện'];
   const cats = catOrder.filter(c => grouped[c]);
   Object.keys(grouped).forEach(c => { if (!cats.includes(c)) cats.push(c); });
 
   let html = '';
   cats.forEach(cat => {
     const prods = grouped[cat];
-    const emoji = cat.includes('Kệ') ? '🪔' : cat.includes('Box') ? '📦' : '🐱';
+    // ✅ ĐÃ THÊM emoji cho Phụ Kiện
+    const emoji = cat.includes('Kệ') ? '🪔' : cat.includes('Box') ? '📦' : cat.includes('Phụ') ? '🎀' : '🐱';
 
     if (TAB_CATEGORIES[cat]) {
-      // Hiển thị dạng TAB
       const tabs = TAB_CATEGORIES[cat];
       if (!activeTabs[cat]) activeTabs[cat] = 'Tất cả';
       html += `<div class="tab-section">
@@ -390,7 +367,6 @@ function renderAll() {
       });
       html += `</div>`;
     } else {
-      // Hiển thị dạng grid bình thường
       html += `<div style="margin-bottom:28px">
         <div class="section-title">${emoji} ${cat}</div>
         <div class="products-grid">${prods.map(p => cardHTML(p)).join('')}</div>
@@ -406,15 +382,12 @@ function setTab(cat, tab) {
   renderAll();
 }
 
-// ── CARD HTML ──
 function cardHTML(p) {
   const oos = p.soluong===0;
   const sc = oos?'out':p.soluong<=3?'low':'plenty';
   const sl = oos?'Hết hàng':'Còn hàng';
- 
-const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
+  const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
 
-  // Ảnh
   let imgHTML = '';
   if (p.anh) {
     const imgs = p.anh.split(',').map(s=>s.trim()).filter(Boolean);
@@ -436,7 +409,7 @@ const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
       </div>`;
     }
   } else {
-    const emoji = p.danhmuc.includes('Kệ')?'🪔':p.danhmuc.includes('Box')?'📦':'🐱';
+    const emoji = p.danhmuc.includes('Kệ')?'🪔':p.danhmuc.includes('Box')?'📦':p.danhmuc.includes('Phụ')?'🎀':'🐱';
     imgHTML = `<div class="card-img-wrap"><div class="slide-placeholder">${emoji}</div></div>`;
   }
 
@@ -456,23 +429,21 @@ const fmt = n => n.toLocaleString('vi-VN')+'.000đ';
       ${p.masp?`<div class="card-masp">Mã: ${p.masp}</div>`:''}
     </div>
     <div class="card-footer">
-     <div class="card-price">${fmt(p.gia)}<span class="unit"> /con</span></div>
+      <div class="card-price">${fmt(p.gia)}<span class="unit"> /con</span></div>
       <div class="stock-info">
         <span class="stock-count ${sc}">${sl}</span>
-       
       </div>
     </div>
     <div class="btn-wrap">
       ${oos
         ? `<button class="btn-copy" disabled>⚠️ Hết hàng</button>`
         : `<button class="btn-copy" onclick="copyInfo('${p.ten.replace(/'/g,"\\'")}','${p.kichthuoc}','${fmt(p.gia)}','${p.masp}')">📋 Copy thông tin đặt hàng</button>
-       <a href="https://m.me/61555618073597" target="_blank" class="btn-zalo" style="background:#0084ff">💬 Nhắn Fanpage</a>`
+           <a href="https://m.me/61555618073597" target="_blank" class="btn-zalo" style="background:#0084ff">💬 Nhắn Fanpage</a>`
       }
     </div>
   </div>`;
 }
 
-// ── SLIDER ──
 function slide(id, total, dir) {
   slideIdx[id] = ((slideIdx[id]||0)+dir+total)%total;
   const el = document.getElementById('st-'+id);
@@ -480,7 +451,6 @@ function slide(id, total, dir) {
   document.querySelectorAll(`#dots-${id} .dot`).forEach((d,i)=>d.classList.toggle('active',i===slideIdx[id]));
 }
 
-// ── COPY + ZALO ──
 let toastTimer;
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -491,7 +461,7 @@ function showToast(msg) {
 }
 
 function copyInfo(ten, size, gia, masp) {
- const text = `Xin Chào! Tôi muốn đặt:\n🐱 ${ten}\n📐 ${size}\n💰 ${gia}\nMã: ${masp}\nShop còn hàng không ạ?`;
+  const text = `Xin Chào! Tôi muốn đặt:\n🐱 ${ten}\n📐 ${size}\n💰 ${gia}\nMã: ${masp}\nShop còn hàng không ạ?`;
   navigator.clipboard.writeText(text)
     .then(()=>showToast('✅ Đã copy! Mở Zalo dán vào gửi shop nhé'))
     .catch(()=>{
@@ -502,7 +472,6 @@ function copyInfo(ten, size, gia, masp) {
     });
 }
 
-// ── INIT ──
 fetchSheet();
 </script>
 </body>
