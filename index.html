@@ -98,7 +98,6 @@
   .badge-new { background:#27ae60; color:white; }
   .badge-soldout { background:#7f8c8d; color:white; }
   .badge-kieu { background:#8e44ad; color:white; }
-  /* ✅ MỚI: Badge HOAT_DONG màu xanh dương */
   .badge-hoatdong { background:#2980b9; color:white; }
 
   /* CARD BODY */
@@ -179,8 +178,7 @@
       <button class="filter-btn" onclick="setCategory('Mèo 1XX',this)">Mèo 1XX</button>
       <button class="filter-btn" onclick="setCategory('Mèo 2XX',this)">Mèo 2XX</button>
       <button class="filter-btn" onclick="setCategory('Mèo 3XX-4XX',this)">Mèo 3-4XX</button>
-      <button class="filter-btn" onclick="setCategory('Mèo 5XX',this)">Mèo 5XX</button>
-      <button class="filter-btn" onclick="setCategory('Trên 6XX',this)">Trên 6XX</button>
+      <button class="filter-btn" onclick="setCategory('Trên 5XX',this)">Trên 5XX</button>
       <button class="filter-btn" onclick="setCategory('Kệ Đèn',this)">Kệ Đèn</button>
       <button class="filter-btn" onclick="setCategory('Box Mica',this)">Box Mica</button>
       <button class="filter-btn" onclick="setCategory('Lẵng',this)">Lẵng</button>
@@ -253,10 +251,9 @@ async function fetchSheet() {
   }
 }
 
-// Chuẩn hóa tên cột: bỏ dấu tiếng Việt, uppercase, chỉ giữ chữ/số/gạch dưới
 function normalizeHeader(h) {
   return h.trim()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g,'') // bỏ dấu
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
     .replace(/đ/gi,'d')
     .toUpperCase()
     .replace(/[^A-Z0-9_]/g,'_')
@@ -267,10 +264,8 @@ function normalizeHeader(h) {
 function parseCSV(text) {
   const lines = text.split('\n').filter(l => l.trim());
   const rawHeaders = parseCSVLine(lines[0]);
-  // Lưu cả header gốc (normalized) lẫn map để tra
   const headers = rawHeaders.map(h => normalizeHeader(h));
 
-  // Debug: log headers ra console để kiểm tra
   console.log('📋 Headers từ sheet:', headers);
 
   const products = [];
@@ -281,17 +276,19 @@ function parseCSV(text) {
     headers.forEach((h, idx) => obj[h] = (vals[idx]||'').trim());
     if (!obj['TEN']) continue;
 
-    // Đọc giá — hỗ trợ nhập tắt: 298 = 298.000đ
     let giaRaw = parseInt((obj['GIA']||'0').replace(/[^\d]/g,'')) || 0;
     if (giaRaw > 0 && giaRaw < 1000) giaRaw = giaRaw * 1000;
 
-    // Đọc HOAT_DONG — tìm key chứa "HOAT" trong obj
     const hoatKey = Object.keys(obj).find(k => k.includes('HOAT')) || '';
     const hoatdong = hoatKey ? obj[hoatKey] : '';
 
+    // ✅ Gộp Mèo 5XX và Trên 6XX vào Trên 5XX
+    let dm = obj['DANH_MUC'] || '';
+    if (dm === 'Mèo 5XX' || dm === 'Trên 6XX') dm = 'Trên 5XX';
+
     products.push({
       ten:       obj['TEN'] || '',
-      danhmuc:   obj['DANH_MUC'] || '',
+      danhmuc:   dm,
       kichthuoc: obj['KICH_THUOC'] || '',
       gia:       giaRaw,
       soluong:   parseInt(obj['SO_LUONG'])||0,
@@ -330,7 +327,6 @@ function getFiltered() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   const pv = document.getElementById('priceFilter').value;
 
-  // ✅ SỬA LỌC GIÁ: So sánh số nguyên với số nguyên, không qua format
   let pMin = 0, pMax = 99999999;
   if (pv !== 'all') {
     const parts = pv.split('-');
@@ -341,7 +337,6 @@ function getFiltered() {
   return allProducts.filter(p => {
     const mC = activeCategory === 'all' || p.danhmuc === activeCategory;
     const mQ = !q || p.ten.toLowerCase().includes(q) || p.masp.toLowerCase().includes(q) || p.danhmuc.toLowerCase().includes(q);
-    // ✅ So sánh p.gia (số nguyên) với pMin/pMax (số nguyên) — đúng
     const mP = p.gia >= pMin && p.gia <= pMax;
     return mC && mQ && mP;
   });
@@ -370,7 +365,8 @@ function renderAll() {
     grouped[p.danhmuc].push(p);
   });
 
-  const catOrder = ['Mèo 1XX','Mèo 2XX','Mèo 3XX-4XX','Mèo 5XX','Trên 6XX','Kệ Đèn','Box Mica','Lẵng','Phụ Kiện'];
+  // ✅ Đã xóa 'Mèo 5XX' và 'Trên 6XX', thay bằng 'Trên 5XX'
+  const catOrder = ['Mèo 1XX','Mèo 2XX','Mèo 3XX-4XX','Trên 5XX','Kệ Đèn','Box Mica','Lẵng','Phụ Kiện'];
   const cats = catOrder.filter(c => grouped[c]);
   Object.keys(grouped).forEach(c => { if (!cats.includes(c)) cats.push(c); });
 
@@ -415,9 +411,7 @@ function setTab(cat, tab) {
   renderAll();
 }
 
-// 
 function fmtGia(n) {
-  // n là số nguyên đầy đủ (vd: 150000)
   return n.toLocaleString('vi-VN') + 'đ';
 }
 
