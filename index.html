@@ -277,7 +277,7 @@ function parseCSV(text) {
     if (!obj['TEN']) continue;
 
     let giaRaw = parseInt((obj['GIA']||'0').replace(/[^\d]/g,'')) || 0;
-    if (giaRaw > 0 && giaRaw < 1000) giaRaw = giaRaw * 1000;
+    if (giaRaw > 0 && giaRaw < 10000) giaRaw = giaRaw * 1000;
 
     const hoatKey = Object.keys(obj).find(k => k.includes('HOAT')) || '';
     const hoatdong = hoatKey ? obj[hoatKey] : '';
